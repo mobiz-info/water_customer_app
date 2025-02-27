@@ -1,0 +1,2 @@
+C:/Users/Admin/StudioProjects/water_customer_app/android/app/.cxx/Debug/5q4f6am1/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Admin/StudioProjects/water_customer_app/android/app/.cxx/Debug/5q4f6am1/armeabi-v7a/CMakeFiles/rebuild_cache.dir

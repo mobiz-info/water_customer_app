@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "312029247423",
+    "project_id": "nationalwaterfcm-4cd9e",
+    "storage_bucket": "nationalwaterfcm-4cd9e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312029247423:android:497ff7d16fd94028fd930a",
+        "android_client_info": {
+          "package_name": "com.national.customerapp1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtT8Iw8EBP99AVJeJtHkS2fRSXVW-qrNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312029247423:android:83f480e192a4e0b2fd930a",
+        "android_client_info": {
+          "package_name": "com.national.marketing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtT8Iw8EBP99AVJeJtHkS2fRSXVW-qrNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312029247423:android:e99fd41f314cebc5fd930a",
+        "android_client_info": {
+          "package_name": "com.national.vansale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtT8Iw8EBP99AVJeJtHkS2fRSXVW-qrNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
