@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:water_customer_app/Models/coupon_list_response_model.dart';
 import 'package:water_customer_app/Models/list_cart_response_model.dart';
@@ -17,7 +18,13 @@ class PurchaseCouponController extends GetxController{
   CouponListResponseModel? couponListResponseModel;
   ListCartResponseModel? listCartResponseModel;
   RxList<CartItem> cartList = <CartItem>[].obs;
-
+  // Method to get all cart items from all carts
+  // List<CartItem> get allCartItems {
+  //   return listCartResponseModel?.data
+  //       .expand((cart) => cart.items)
+  //       .toList() ??
+  //       [];
+  // }
   Future<void> getCouponList() async {
     try {
       isLoadingProductList.value = true;
@@ -32,6 +39,7 @@ class PurchaseCouponController extends GetxController{
       print('Error coupon: $e');
     }
   }
+
   Future<void> addToCart(String date,String productId,int quantity,double price,) async {
     try {
       isLoadingCart.value = true;
@@ -51,6 +59,39 @@ class PurchaseCouponController extends GetxController{
       print('Error coupon: $e');
     }
   }
+
+  //created by new for api response chnage
+  // Future<void> listTheCart() async {
+  //   try {
+  //     isLoadingCart.value = true;
+  //     listCartResponseModel = await APIManager.listTheCart();
+  //     if (listCartResponseModel is ListCartResponseModel) {
+  //       print(listCartResponseModel?.data);
+  //       print('Cart items:');
+  //
+  //       // Clear existing lists
+  //       cartList.clear();
+  //       globals.cartList?.clear();
+  //
+  //       // Iterate through all carts and their items
+  //       for (var cart in listCartResponseModel?.data ?? []) {
+  //         for (var item in cart.items) {
+  //           print('Product: ${item.product}, Quantity: ${item.quantity}, Price: ${item.price}');
+  //           cartList.add(item);
+  //           globals.cartList?.add(item);
+  //         }
+  //       }
+  //
+  //       isLoadingCart.value = false;
+  //     }
+  //   } catch (e) {
+  //     log(e.toString());
+  //     print('Error listing cart: $e');
+  //     isLoadingCart.value = false;
+  //   }
+  // }
+  //created by abhijith
+
   Future<void> listTheCart() async {
     try {
       isLoadingCart.value = true;
@@ -59,7 +100,7 @@ class PurchaseCouponController extends GetxController{
       is ListCartResponseModel) {
         print(listCartResponseModel?.data);
         print('Cart items:');
-        for (var item in listCartResponseModel?.data.items??[]) {
+        for (var item in listCartResponseModel?.data .items??[]) {
           print('Product: ${item.product}, Quantity: ${item.quantity}, Price: ${item.price}');
         }
         if (listCartResponseModel
@@ -78,6 +119,8 @@ class PurchaseCouponController extends GetxController{
       print('Error coupon: $e');
     }
   }
+
+
   bool isProductInCart(String productId) {
     if ( globals.cartList == null ||  globals.cartList!.isEmpty) {
       print('cart is null !!!!!!!!!!!! ');

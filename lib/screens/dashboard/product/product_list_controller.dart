@@ -54,6 +54,39 @@ class ProductListController extends GetxController{
       isLoadingCart.value = false;
     }
   }
+  //created by new for api response
+
+  // Future<void> listTheCart() async {
+  //   try {
+  //     isLoadingCart.value = true;
+  //     listCartResponseModel = await APIManager.listTheCart();
+  //     if (listCartResponseModel is ListCartResponseModel) {
+  //       print(listCartResponseModel?.data);
+  //
+  //       // Clear existing lists
+  //       cartList.clear();
+  //       globals.cartList?.clear();
+  //
+  //       // Iterate through all carts and collect all items
+  //       for (var cartData in listCartResponseModel?.data ?? []) {
+  //         if (cartData.items != null) {
+  //           print('Cart items for date ${cartData.deliveryDate}:');
+  //           for (var item in cartData.items) {
+  //             print('Product: ${item.product}, Quantity: ${item.quantity}, Price: ${item.price}');
+  //             cartList.add(item);
+  //             globals.cartList?.add(item);
+  //           }
+  //         }
+  //       }
+  //     }
+  //   } catch (e) {
+  //     log(e.toString());
+  //     print('Error listing cart: $e');
+  //   } finally {
+  //     isLoadingCart.value = false;
+  //   }
+  // }
+  //created by abhijith
   Future<void> listTheCart() async {
     try {
       isLoadingCart.value = true;
@@ -68,7 +101,7 @@ class ProductListController extends GetxController{
         if (listCartResponseModel
         is ListCartResponseModel) {
           cartList.clear();
-          cartList.addAll(listCartResponseModel?.data.items ?? []);
+          cartList.addAll(listCartResponseModel?.data .items ?? []);
           globals.cartList?.clear();
           globals.cartList=listCartResponseModel?.data.items;
 
@@ -82,6 +115,7 @@ class ProductListController extends GetxController{
       print('Error coupon: $e');
     }
   }
+
   bool isProductInCart(String productId) {
     if ( globals.cartList == null ||  globals.cartList!.isEmpty) {
       print('cart is null !!!!!!!!!!!! ');

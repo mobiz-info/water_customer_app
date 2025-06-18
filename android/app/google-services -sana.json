@@ -1,0 +1,124 @@
+{
+  "project_info": {
+    "project_number": "512124116403",
+    "project_id": "sanawater-ff102",
+    "storage_bucket": "sanawater-ff102.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512124116403:android:d92d193a4343e4ed717fc6",
+        "android_client_info": {
+          "package_name": "com.alwafa.customerapp2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvjBmq0c35tMrhWO2kMTVq2rJQiwP_-ZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512124116403:android:6170dad7c5ef6b00717fc6",
+        "android_client_info": {
+          "package_name": "com.alwafa.marketing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvjBmq0c35tMrhWO2kMTVq2rJQiwP_-ZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512124116403:android:2bd74cb5293f293f717fc6",
+        "android_client_info": {
+          "package_name": "com.alwafa.vansale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvjBmq0c35tMrhWO2kMTVq2rJQiwP_-ZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512124116403:android:905b61d29c03a2d0717fc6",
+        "android_client_info": {
+          "package_name": "com.sana.customerapp1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvjBmq0c35tMrhWO2kMTVq2rJQiwP_-ZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512124116403:android:863300fd94a5d4df717fc6",
+        "android_client_info": {
+          "package_name": "com.sana.marketing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvjBmq0c35tMrhWO2kMTVq2rJQiwP_-ZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512124116403:android:5f28bd169f7a05a1717fc6",
+        "android_client_info": {
+          "package_name": "com.sana.vansale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvjBmq0c35tMrhWO2kMTVq2rJQiwP_-ZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

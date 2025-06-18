@@ -28,6 +28,7 @@ void handleMessage(RemoteMessage? message) async {
 }
 
 void handleMessageForeground(RemoteMessage? message) async {
+  print("message  $message");
   if (message == null) return;
   Fluttertoast.showToast(
     msg: message.notification?.title ?? 'No Title',
@@ -41,7 +42,11 @@ void handleMessageForeground(RemoteMessage? message) async {
 }
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(); // Ensure Firebase is initialized
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp();
+  }
+ // created by abhijith
+  //await Firebase.initializeApp(); // Ensure Firebase is initialized
   print("Handling a background message: ${message.messageId}");
   await NotificationService().showNotification(
       title: message.notification!.title.toString(),
@@ -59,12 +64,14 @@ Future<void> initPushNotification() async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: "AIzaSyDvjBmq0c35tMrhWO2kMTVq2rJQiwP_-ZM",
-      appId: "1:512124116403:android:d92d193a4343e4ed717fc6",
-      messagingSenderId: "512124116403",
-      projectId: "sanawater-ff102",
-    ),
+
+    //enable the options in sana
+    // options: FirebaseOptions(
+    //   apiKey: "AIzaSyDvjBmq0c35tMrhWO2kMTVq2rJQiwP_-ZM",
+    //   appId: "1:512124116403:android:d92d193a4343e4ed717fc6",
+    //   messagingSenderId: "512124116403",
+    //   projectId: "sanawater-ff102",
+    // ),
   );
  await loadUserData();
   NotificationService().initNotification();

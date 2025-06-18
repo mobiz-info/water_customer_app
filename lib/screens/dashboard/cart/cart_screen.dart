@@ -24,20 +24,37 @@ class _CartScreenState extends State<CartScreen> {
   CartController cartController = Get.put(CartController());
 
   final BottomNavigationBarController controller =
-  Get.put(BottomNavigationBarController());  DateTime selectedDate = DateTime.now(); // Initialize with the current date
+      Get.put(BottomNavigationBarController());
+  DateTime selectedDate = DateTime.now(); // Initialize with the current date
   String formattedDate = '';
-
+  //created by new
+  bool isDatePicked  = false;
   @override
   void initState() {
-    if (globals.nextDeliveryDate == '' || globals.nextDeliveryDate == null) {
-      formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate);
-    } else {
-      selectedDate = DateFormat('dd-MM-yyyy').parse(globals.nextDeliveryDate!);
-      formattedDate = globals.nextDeliveryDate!;
-    }
+    //created by new
+   // _initializeDate();
+
+    selectedDate = DateTime.now();
+    formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate);
+
+    // Debug prints
+    print('Initial selectedDate: $selectedDate');
+    print('Initial formattedDate: $formattedDate');
+    print('globals.nextDeliveryDate: ${globals.nextDeliveryDate}');
+
+    //end.............
+
+    //craeted by abhijith didnot use now because the date issue
+    // if (globals.nextDeliveryDate == '' || globals.nextDeliveryDate == null) {
+    //   formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate);
+    // } else {
+    //   selectedDate = DateFormat('dd-MM-yyyy').parse(globals.nextDeliveryDate!);
+    //   formattedDate = globals.nextDeliveryDate!;
+    // }
     cartController.listTheCart();
     super.initState();
   }
+
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -49,7 +66,10 @@ class _CartScreenState extends State<CartScreen> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate); // Update formatted date
+        formattedDate = DateFormat('dd-MM-yyyy')
+            .format(selectedDate); // Update formatted date
+        //created by new
+        isDatePicked = true;
       });
     }
   }
@@ -82,33 +102,39 @@ class _CartScreenState extends State<CartScreen> {
                   ],
                 ),
                 Obx(
-                      () => cartController.isLoadingProductList != true
+                  () => cartController.isLoadingProductList != true
                       ? cartController.cartList.length != 0
-                      ? ListView.separated(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: cartController.cartList.length,
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 10, // Adjust space between items as needed
-                    ),
-                    itemBuilder: (context, index) {
-                      return cartTile(
-                        cartController.cartList[index].product ?? '(----)',
-                        cartController.cartList[index].id ?? '',
-                        cartController.cartList[index].price ?? '',
-                        cartController.cartList[index].quantity ?? '',
-                        screenWidth,
-                        screenHeight,
-                      );
-                    },
-                  )
-                      : SizedBox()
+                          ? ListView.separated(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: cartController.cartList.length,
+                              separatorBuilder: (context, index) => SizedBox(
+                                height:
+                                    10, // Adjust space between items as needed
+                              ),
+                              itemBuilder: (context, index) {
+                                return cartTile(
+                                  cartController.cartList[index].product ??
+                                      '(----)',
+                                  cartController.cartList[index].id ?? '',
+                                  cartController.cartList[index].price ?? '',
+                                  cartController.cartList[index].quantity ?? '',
+                                  screenWidth,
+                                  screenHeight,
+                                );
+                              },
+                            )
+                          : SizedBox()
                       : SizedBox(
-                    height: screenHeight * .5, // Adjust height as needed
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
+                          height: screenHeight * .5, // Adjust height as needed
+                          child: Center(child: CircularProgressIndicator()),
+                        ),
                 ),
-                Obx(()=> cartPlaceOrderTile(context, cartController.grandTotal.value, screenWidth, screenHeight)),
+                Obx(() => cartPlaceOrderTile(
+                    context,
+                    cartController.grandTotal.value,
+                    screenWidth,
+                    screenHeight)),
               ],
             ),
           ),
@@ -117,85 +143,100 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget cartPlaceOrderTile(BuildContext context, String grandTotal,  double screenWidth, double screenHeight) {
+  Widget cartPlaceOrderTile(BuildContext context, String grandTotal,
+      double screenWidth, double screenHeight) {
     return Container(
       height: isLandscape(context) ? screenWidth * 0.08 : null,
-      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02, vertical: screenHeight * 0.02),
+      padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.02, vertical: screenHeight * 0.02),
       margin: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
       child: Obx(
-            () => cartController.cartList.length != 0
+        () => cartController.cartList.length != 0
             ? Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Grand Total :     AED   ', style: grayTextStyle2),
-                Text(grandTotal, style: grayHeadStyle3),
-              ],
-            ),
-            SizedBox(height: screenHeight * .01),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Required Date : ', style: grayTextStyle2),
-                GestureDetector(
-                  onTap: () => _selectDate(context),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: CustomColors.datePickerBg,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.calendar_today, color: CustomColors.text),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Text(
-                              formattedDate, // Display the selected or default date
-                              style: TextStyle(color: CustomColors.text),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Grand Total :     AED   ', style: grayTextStyle2),
+                      Text(grandTotal, style: grayHeadStyle3),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight * .01),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Required Date : ', style: grayTextStyle2),
+                      GestureDetector(
+                        onTap: () => _selectDate(context),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: CustomColors.datePickerBg,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.calendar_today,
+                                    color: CustomColors.text),
+
+
+
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child:Text(  //created by new
+                                    isDatePicked
+                                        ? formattedDate // user-picked
+                                        : cartController.deliveryDate.value.toString(), // default
+                                    style: TextStyle(color: CustomColors.text),
+                                  ),
+                                  //cretae dby abhijith
+                                  // Text(
+                                  //
+                                  //   formattedDate!=selectedDate ? cartController.deliveryDate.value.toString():formattedDate, // Display the selected or default date
+                                  //   style: TextStyle(color: CustomColors.text),
+                                  // ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      )
+                    ],
                   ),
-                )
-
-              ],
-            ),
-            SizedBox(height: screenHeight * .01),
-            cartController.isLoadingOrderPlace.value !=true
-            ?CustomButton(
-              buttonText: 'Place Your Order',
-              tapFunction: () {
-                cartController.placeOrder();
-                Get.back();
-              },
-              colorGradient: CustomColors.lightBlueGradient(),
-            )
-                :Center(child: CircularProgressIndicator()),
-
-          ],
-        )
+                  SizedBox(height: screenHeight * .01),
+                  cartController.isLoadingOrderPlace.value != true
+                      ? CustomButton(
+                          buttonText: 'Place Your Order',
+                          tapFunction: () {
+                            cartController.placeOrder();
+                            Get.back();
+                          },
+                          colorGradient: CustomColors.lightBlueGradient(),
+                        )
+                      : Center(child: CircularProgressIndicator()),
+                ],
+              )
             : SizedBox(
-          height: screenHeight * .6,
-          child: Center(child: Text('Cart is empty', style: grayTextStyle2)),
-        ),
+                height: screenHeight * .6,
+                child:
+                    Center(child: Text('Cart is empty', style: grayTextStyle2)),
+              ),
       ),
     );
   }
 
-  Widget cartTile(String itemName, String productId, String amount, String count, double screenWidth, double screenHeight) {
+  Widget cartTile(String itemName, String productId, String amount,
+      String count, double screenWidth, double screenHeight) {
     TextEditingController countController = TextEditingController();
     countController.text = count;
     return Container(
       height: isLandscape(context) ? screenWidth * 0.08 : null,
-      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02, vertical: screenHeight * 0.02),
+      padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.02, vertical: screenHeight * 0.02),
       margin: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -227,11 +268,16 @@ class _CartScreenState extends State<CartScreen> {
                     CustomPlusMinusTextBox(
                       width: screenWidth,
                       minusFunction: () {
-                        cartController.editOrder(productId, parseInt(countController.text)??1);
+                        cartController.editOrder(
+                            productId, parseInt(countController.text) ?? 1);
                       },
-                      plusFunction: () {  cartController.editOrder(productId, parseInt(countController.text)??1);
+                      plusFunction: () {
+                        cartController.editOrder(
+                            productId, parseInt(countController.text) ?? 1);
                       },
-                      onChangeFunction: () {  cartController.editOrder(productId, parseInt(countController.text)??1);
+                      onChangeFunction: () {
+                        cartController.editOrder(
+                            productId, parseInt(countController.text) ?? 1);
                       },
                       textController: countController,
                     ),
@@ -276,6 +322,13 @@ class _CartScreenState extends State<CartScreen> {
                       text: 'Total : ',
                       style: grayTextStyle2,
                     ),
+                    //created by new
+                    // TextSpan(
+                    //   text: (double.parse(amount) *
+                    //       (int.tryParse(countController.text) ?? 1)).toStringAsFixed(2),
+                    //   style: grayTextStyle3,
+                    // ),
+                    //created by abhijith
                     TextSpan(
                       text: amount,
                       style: grayTextStyle3,

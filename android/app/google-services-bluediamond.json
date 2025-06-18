@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "195792524515",
+    "project_id": "bluediamond-water",
+    "storage_bucket": "bluediamond-water.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195792524515:android:3b45529dd7e413a9f9e1d6",
+        "android_client_info": {
+          "package_name": "com.bluediamond.customerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF_Yls7po9aZDcIkVPMZwMCEatJmmniIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195792524515:android:baeecaaaecba7fbbf9e1d6",
+        "android_client_info": {
+          "package_name": "com.bluediamond.vansale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF_Yls7po9aZDcIkVPMZwMCEatJmmniIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195792524515:android:c58191293cc6d8acf9e1d6",
+        "android_client_info": {
+          "package_name": "com.sana.customerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF_Yls7po9aZDcIkVPMZwMCEatJmmniIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

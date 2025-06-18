@@ -2,6 +2,8 @@
 
 import 'package:water_customer_app/Models/parser_helper/parser_helper.dart';
 
+
+// already created by abhijith
 class ListCartResponseModel {
   final int? statusCode;
   final CartData data;
@@ -25,6 +27,36 @@ class ListCartResponseModel {
     };
   }
 }
+
+
+//cretaed by new for change api reponse data receive list
+// class ListCartResponseModel {
+//   final int? statusCode;
+//   final List<CartData> data;
+//
+//   ListCartResponseModel({
+//     required this.statusCode,
+//     required this.data,
+//   });
+//
+//   factory ListCartResponseModel.fromJson(Map<String, dynamic> json) {
+//     return ListCartResponseModel(
+//       statusCode: parseInt(json['statusCode']),
+//       //data: CartData.fromJson(json['data']),
+//       data: List<CartData>.from(
+//         json['data'].map((data) => CartData.fromJson(data)),
+//       ),
+//     );
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     return {
+//       'statusCode': statusCode,
+//       // 'data': data.toJson(),
+//       'data': data.map((data) => data.toJson()).toList(),
+//     };
+//   }
+// }
 
 class CartData {
   final String? id;

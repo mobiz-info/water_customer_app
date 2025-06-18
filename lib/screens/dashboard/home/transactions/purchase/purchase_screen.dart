@@ -6,6 +6,8 @@ import 'package:water_customer_app/utils/colors.dart';
 import 'package:water_customer_app/utils/styles.dart';
 import 'package:water_customer_app/widgets/custom_appbar.dart';
 
+import '../../../../../Models/cooler_purchase_response_model.dart';
+
 class PurchaseScreen extends StatefulWidget {
   final String appTittle;
 
@@ -59,6 +61,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               purchaseController.coolerPurchaseResponseModel
                   ?.orders?[index].orderStatus ?? '',
               screenWidth,
+              purchaseController.coolerPurchaseResponseModel
+                  ?.orders?[index].totalQuantity ?? 0,
+
             ),
           ),
         )
@@ -80,6 +85,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               purchaseController.coolerPurchaseResponseModel
                   ?.orders?[index].orderStatus ?? '',
               screenWidth,
+              purchaseController.coolerPurchaseResponseModel
+                  ?.orders?[index].totalQuantity ?? 0,
+
             ),
           ),
         )
@@ -100,15 +108,19 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               purchaseController.couponPurchaseResponseModel
                   ?.couponList[index].orderStatus ?? '',
               screenWidth,
+              purchaseController.couponPurchaseResponseModel
+                  ?.couponList[index].totalQuantity ?? 0,
+
+
             ),
           ),
         ),
       ),
     );
   }
-
+//created by abhijth
   Widget navigationItem(
-      String orderDate, String orderNo, String orderStatus, double screenWidth) {
+      String orderDate, String orderNo, String orderStatus, double screenWidth , int? totalQuantity  ) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -121,7 +133,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Expanded(flex: 3, child: Text('Order no', style: grayTextStyle1)),
+              Expanded(flex: 3, child: Text('Order No', style: grayTextStyle1)),
               Expanded(flex: 1, child: Text(':', style: grayTextStyle1)),
               Expanded(
                 flex: 5,
@@ -136,7 +148,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(flex: 3, child: Text('Order date', style: grayTextStyle1)),
+              Expanded(flex: 3, child: Text('Purchase Date', style: grayTextStyle1)),
               Expanded(flex: 1, child: Text(':', style: grayTextStyle1)),
               Expanded(
                 flex: 5,
@@ -148,9 +160,25 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(flex: 3, child: Text('Order status', style: grayTextStyle1)),
+              Expanded(flex: 3, child: Text('Purchase Type', style: grayTextStyle1)),
               Expanded(flex: 1, child: Text(':', style: grayTextStyle1)),
               Expanded(flex: 5, child: Text(orderStatus, style: grayTextStyle1)),
+            ],
+          ),
+          SizedBox(height: 5),
+          // Add this new row for quantity display
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(flex: 3, child: Text('No Of Bottle Purchased', style: grayTextStyle1)),
+              Expanded(flex: 1, child: Text(':', style: grayTextStyle1)),
+              Expanded(
+                flex: 5,
+                child: Text(
+                    totalQuantity?.toString() ?? '0',
+                    style: grayTextStyle1
+                ),
+              ),
             ],
           ),
         ],
@@ -158,6 +186,82 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
     );
   }
 
+  //created by new for new requirement for customer
+  // Widget navigationItem(
+  //     String orderDate, String orderNo, String orderStatus, double screenWidth, [
+  //       List<OrderItem>? items, // optional
+  //     ]) {
+  //   // Get the first item's quantity (assuming there's at least one item)
+  //   String quantity = items?.isNotEmpty == true ? items![0].quantity ?? '0' : '0';
+  //
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(20),
+  //       border: Border.all(color: CustomColors.containerBorder),
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.start,
+  //           children: [
+  //             Expanded(flex: 3, child: Text('Order no', style: grayTextStyle1)),
+  //             Expanded(flex: 1, child: Text(':', style: grayTextStyle1)),
+  //             Expanded(
+  //               flex: 5,
+  //               child: SingleChildScrollView(
+  //                 scrollDirection: Axis.horizontal,
+  //                 child: Text(orderNo, style: grayTextStyle1, textAlign: TextAlign.start),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 5),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Expanded(flex: 3, child: Text('Order date', style: grayTextStyle1)),
+  //             Expanded(flex: 1, child: Text(':', style: grayTextStyle1)),
+  //             Expanded(
+  //               flex: 5,
+  //               child: Text(orderDate, style: grayTextStyle1, textAlign: TextAlign.start),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 5),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Expanded(flex: 3, child: Text('Order status', style: grayTextStyle1)),
+  //             Expanded(flex: 1, child: Text(':', style: grayTextStyle1)),
+  //             Expanded(flex: 5, child: Text(orderStatus, style: grayTextStyle1)),
+  //           ],
+  //         ),
+  //         //SizedBox(height: 5),
+  //         // Row(
+  //         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         //   children: [
+  //         //     Expanded(flex: 3, child: Text('No of Bottle', style: grayTextStyle1)),
+  //         //     Expanded(flex: 1, child: Text(':', style: grayTextStyle1)),
+  //         //     Expanded(flex: 5, child: Text(quantity, style: grayTextStyle1)),
+  //         //   ],
+  //         // ),
+  //         // Only show "No of Bottle" if items is not null
+  //         if (items != null) ...[
+  //           SizedBox(height: 5),
+  //           Row(
+  //             children: [
+  //               Expanded(flex: 3, child: Text('No of Bottle', style: grayTextStyle1)),
+  //               Expanded(flex: 1, child: Text(':', style: grayTextStyle1)),
+  //               Expanded(flex: 5, child: Text(quantity, style: grayTextStyle1)),
+  //             ],
+  //           ),
+  //         ],
+  //       ],
+  //     ),
+  //   );
+  // }
   Widget _noDataWidget(String message) {
     return Center(
       child: Text(

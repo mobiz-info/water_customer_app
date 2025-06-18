@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:water_customer_app/Models/list_cart_response_model.dart';
@@ -7,6 +8,8 @@ import 'package:water_customer_app/Models/order_water_response_model.dart';
 import 'package:water_customer_app/api/api_manager.dart';
 import 'package:water_customer_app/utils/Common.dart';
 import 'package:water_customer_app/utils/globals.dart' as globals;
+
+import '../../../../Models/add_to_cart_response_model.dart';
 
 class OrderWaterController extends GetxController {
 
@@ -22,8 +25,12 @@ class OrderWaterController extends GetxController {
   RxString selectedProductId = ''.obs;
   ListCartResponseModel? listCartResponseModel;
   RxBool isLoadingProductList = false.obs;
+  //RxBool isInCart = false.obs;
+  //created by new
+  //RxList<CartData> allCarts = <CartData>[].obs;
 
   void updateTotalAmount(String bottleCount) {
+
     totalAmount.value = (int.parse(bottleCount)) *  globals.waterRate;
     if ( AuthData().sales_type == 'FOC'){
       totalAmount.value=0.0;
@@ -65,6 +72,8 @@ class OrderWaterController extends GetxController {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
         );
       } else {
         Fluttertoast.showToast(
@@ -81,11 +90,15 @@ class OrderWaterController extends GetxController {
       isLoading.value = false;
     }
   }
+  //created by new
+
+  //created by abhijith
   Future<void> addToCart(String date,int quantity,double price,) async {
     try {
       isLoadingCart.value = true;
       selectedProductId.value =  globals.waterId;
       final response = await APIManager.addToCart(date, globals.waterId,quantity,price);
+      print("addcart responsne $response");
       if (response
           == 'Done.') {
         Get.back();
@@ -95,6 +108,8 @@ class OrderWaterController extends GetxController {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
         );
         await listTheCart();
 
@@ -107,7 +122,38 @@ class OrderWaterController extends GetxController {
       selectedProductId.value = ''; // Reset after API call is complete
       isLoadingCart.value = false;
     }
-  }
+ }
+
+ //created by new
+ //  Future<void> listTheCart() async {
+ //    try {
+ //      isLoadingCart.value = true;
+ //      listCartResponseModel = await APIManager.listTheCart();
+ //      if (listCartResponseModel is ListCartResponseModel) {
+ //        print(listCartResponseModel?.data);
+ //        print('Cart items:');
+ //
+ //        // Since data is now a list, we need to handle it differently
+ //
+ //
+ //        // Combine all items from all carts into a single list
+ //        List<CartItem> allItems = [];
+ //        for (var cart in listCartResponseModel?.data ?? []) {
+ //          allItems.addAll(cart.items);
+ //        }
+ //        globals.cartList?.clear();
+ //        globals.cartList = allItems;
+ //
+ //        isLoadingProductList.value = false;
+ //      }
+ //    } catch (e) {
+ //      log(e.toString());
+ //      print('Error coupon: $e');
+ //    } finally {
+ //      isLoadingCart.value = false;
+ //    }
+ //  }
+ //created by abhijith
   Future<void> listTheCart() async {
     try {
       isLoadingCart.value = true;
@@ -135,6 +181,8 @@ class OrderWaterController extends GetxController {
       print('Error coupon: $e');
     }
   }
+
+
   bool isProductInCart(String productId) {
     if ( globals.cartList == null ||  globals.cartList!.isEmpty) {
       print('cart is null !!!!!!!!!!!! ');

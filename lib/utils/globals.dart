@@ -17,7 +17,10 @@ String digitalCouponNumber = "";
 String manualCouponNumber = "";
 String bottleConceptionCount = "";
 String? nextDeliveryDate = '';
+
+
 List<CartItem>? cartList = [];
+
 List<EmirateLocationData>? emirate=[];
 List<ManualCouponLeaflet>? couponNumberList = [];
 

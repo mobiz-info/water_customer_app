@@ -42,20 +42,47 @@ print('test2');
 
     } isLoading.value = false;
   }
-  Future<void>getCouponPurchase()async{
-    try{
-      isLoading.value=true;
-      couponPurchaseResponseModel= await APIManager.getCouponPurchase();
-      if(couponPurchaseResponseModel is CouponPurchaseResponseModel){
-        if(couponPurchaseResponseModel?.couponList != null){
-print('test3');
-        }
+  //created by new
+  Future<void> getCouponPurchase() async {
+    print('🔵 [Controller] Starting getCouponPurchase');
+    try {
+      isLoading.value = true;
+      couponPurchaseResponseModel = await APIManager.getCouponPurchase();
+
+      print('🟢 [Controller] Received coupon data:');
+      print('Status: ${couponPurchaseResponseModel?.status}');
+      print('Number of coupons: ${couponPurchaseResponseModel?.couponList.length}');
+
+      if (couponPurchaseResponseModel?.couponList.isEmpty ?? true) {
+        print('🟠 [Controller] No coupon purchases found');
+        // You can add additional handling here if needed
       }
-    }catch (e) {
-      log(e.toString());
-      print('Error3: $e');
-
-
-    } isLoading.value = false;
+    } catch (e) {
+      print('🔴 [Controller] Error in getCouponPurchase: $e');
+      couponPurchaseResponseModel = CouponPurchaseResponseModel(
+        status: 500,
+        couponList: [],
+      );
+    } finally {
+      isLoading.value = false;
+      print('🟢 [Controller] Finished getCouponPurchase');
+    }
   }
+  //created by abhijith
+//   Future<void>getCouponPurchase()async{
+//     try{
+//       isLoading.value=true;
+//       couponPurchaseResponseModel= await APIManager.getCouponPurchase();
+//       if(couponPurchaseResponseModel is CouponPurchaseResponseModel){
+//         if(couponPurchaseResponseModel?.couponList != null){
+// print('test3');
+//         }
+//       }
+//     }catch (e) {
+//       log(e.toString());
+//       print('Error3: $e');
+//
+//
+//     } isLoading.value = false;
+//   }
 }

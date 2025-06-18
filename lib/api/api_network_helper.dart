@@ -37,34 +37,70 @@ class NetworkHelper {
     }
     return response;
   }
-
-  Future<Response> getWithAuthOnly({
-    required String url,
-    required String username,
-    required String password,
-  }) async {
-    print('URL in get:$url');
-    print(username);
-    print(password);
-    String basicAuth =
-        'Basic ${base64Encode(utf8.encode('$username:$password'))}'; // Replace with your actual username and password
-    print('Body:$basicAuth');
-
-    Response response = await dio!.get(url,
-        options: Options(headers: {
-          "Connection": "Keep-Alive",
-          "Authorization": basicAuth,
-        }));
-    print('URL122:  ${response.realUri}');
-    try {
-      print('Response:$response');
-      print('Get: ${response.data}');
-    } on DioException catch (e) {
-      print('Network Helper Get Error: $e');
-    }
-    return response;
-  }
-
+//created by new
+//   Future<Response> getWithAuthOnly({
+//     required String url,
+//     required String username,
+//     required String password,
+//   }) async {
+//     print('URL in get:$url');
+//     print(username);
+//     print(password);
+//     String basicAuth =
+//         'Basic ${base64Encode(utf8.encode('$username:$password'))}'; // Replace with your actual username and password
+//     print('Body:$basicAuth');
+//
+//     Response response = await dio!.get(url,
+//         options: Options(headers: {
+//           "Connection": "Keep-Alive",
+//           "Authorization": basicAuth,
+//         }));
+//     print('URL122:  ${response.realUri}');
+//     try {
+//       print('Response:$response');
+//       print('Get: ${response.data}');
+//     } on DioException catch (e) {
+//       print('Network Helper Get Error: $e');
+//     }
+//     return response;
+//   }
+//   Future<Response> getWithAuth({
+//     required String url,
+//     required String username,
+//     required String password,
+//   }) async {
+//     print('🔵 [NetworkHelper] Starting request to: $url');
+//     String basicAuth = 'Basic ${base64Encode(utf8.encode('$username:$password'))}';
+//
+//     try {
+//       final response = await dio!.get(
+//         url,
+//         options: Options(headers: {
+//           "Authorization": basicAuth,
+//           "username": username,
+//         }),
+//       );
+//       print('🟢 [NetworkHelper] Successful response:');
+//       print('Status: ${response.statusCode}');
+//       print('Data: ${response.data}');
+//       print('Headers: ${response.headers}');
+//       return response;
+//     } on DioException catch (e) {
+//       print('🔴 [NetworkHelper] Error occurred:');
+//       print('Error Type: ${e.type}');
+//       print('Error Message: ${e.message}');
+//       print('Response Status: ${e.response?.statusCode}');
+//       print('Response Data: ${e.response?.data}');
+//
+//       // Return a response even for errors
+//       return Response(
+//         requestOptions: RequestOptions(path: url),
+//         statusCode: e.response?.statusCode ?? 404,
+//         data: e.response?.data ?? {'detail': 'No coupon purchases found'},
+//       );
+//     }
+//   }
+  //created by abhijith
   Future<Response> getWithAuth({
     required String url,
     required String username,
@@ -143,6 +179,7 @@ class NetworkHelper {
   }
 
   Future<Response> postWithBody({
+    //created by new
     required String url,
     dynamic body,
     Map<String, String>? headers,
@@ -173,7 +210,44 @@ class NetworkHelper {
       rethrow;
     }
   }
-
+  // Future<dynamic> postWithBodyAuth({
+  //   required String url,
+  //   dynamic body,
+  //   String? username,
+  //   String? password,
+  // }) async {
+  //   try {
+  //     final response = await dio!.post(
+  //       url,
+  //       data: body,
+  //       options: Options(
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "Authorization": "Basic ${base64Encode(utf8.encode('$username:$password'))}",
+  //         },
+  //       ),
+  //     );
+  //     return response; // Returns a Response object
+  //   } on DioException catch (e) {
+  //     // Return a consistent error map
+  //     return {
+  //       'error': true,
+  //       'message': _parseDioError(e),
+  //       'statusCode': e.response?.statusCode,
+  //       'serverResponse': e.response?.data,
+  //     };
+  //   }
+  // }
+  //
+  // String _parseDioError(DioException e) {
+  //   if (e.response != null) {
+  //     if (e.response!.statusCode == 500) {
+  //       return "Server error: Please try again later";
+  //     }
+  //     return e.response?.data['message'] ?? e.message ?? 'Request failed';
+  //   }
+  //   return e.message ?? 'Network request failed';
+  // }
   Future<dynamic> postWithBodyAuth({
     required String url,
     dynamic body,

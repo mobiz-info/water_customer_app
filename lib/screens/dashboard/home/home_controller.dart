@@ -95,6 +95,33 @@ class HomeController extends GetxController{
       isLoading.value = false;
     }
   }
+
+
+ // created by new for api response
+
+  // Future<void> listTheCart() async {
+  //   try {
+  //     listCartResponseModel = await APIManager.listTheCart();
+  //     if (listCartResponseModel is ListCartResponseModel) {
+  //       print(listCartResponseModel?.data);
+  //
+  //       // Clear existing cart list
+  //       globals.cartList?.clear();
+  //
+  //       // Iterate through all carts and collect all items
+  //       for (var cartData in listCartResponseModel?.data ?? []) {
+  //         if (cartData.items != null) {
+  //           globals.cartList?.addAll(cartData.items);
+  //         }
+  //       }
+  //     }
+  //   } catch (e) {
+  //     log(e.toString());
+  //     print('Error List cart home: $e');
+  //   }
+  // }
+  //created by abhijith
+
   Future<void> listTheCart() async {
     try {
 

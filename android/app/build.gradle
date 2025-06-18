@@ -33,13 +33,14 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
-    namespace "com.sana.customerapp"
+    namespace "com.national.customerapp1"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -52,16 +53,48 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.sana.customerapp"
+        applicationId "com.national.customerapp1"
+        //applicationId "com.sana.customerapp1"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21//flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
-
+//created by new
+//    signingConfigs {
+//        release {
+//            if (keystorePropertiesFile.exists()) {
+//                keyAlias keystoreProperties['keyAlias']
+//                keyPassword keystoreProperties['keyPassword']
+//                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+//                storePassword keystoreProperties['storePassword']
+//            } else {
+//                println("Warning: key.properties file not found. Release signing will not work.")
+//            }
+//        }
+//    }
+//
+//    buildTypes {
+//        release {
+//            if (keystorePropertiesFile.exists()) {
+//                signingConfig signingConfigs.release
+//            } else {
+//                signingConfig signingConfigs.debug
+//                println("Warning: Using debug signing config. Create key.properties for release signing.")
+//            }
+//            minifyEnabled true
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
+//        debug {
+//            signingConfig signingConfigs.debug
+//        }
+//    }
+    //created by abhijith
     signingConfigs {
         release {
             keyAlias = keystoreProperties['keyAlias']
@@ -72,16 +105,35 @@ android {
     }
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
             signingConfig signingConfigs.release
+            minifyEnabled true // Enable code shrinking and obfuscation
+            shrinkResources true // Enable resource shrinking
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
-}
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def versionName = variant.versionName // e.g., 1.0.1
+            def versionCode = variant.versionCode // e.g., 4
+            def newApkName = "national CustomerApp-${versionName}+${versionCode}.apk" // ✅ Custom APK name
+            outputFileName = newApkName // ✅ Set the APK name
+        }
+    }
+    }
+
 
 flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4' // Core library desugaring dependency
+    implementation platform('com.google.firebase:firebase-bom:32.7.0') // Firebase BoM (if using Firebase)
+    implementation 'com.google.firebase:firebase-analytics' // Firebase Analytics (if using Firebase)
+    implementation 'com.google.firebase:firebase-messaging' // Firebase Messaging (if using Firebase)
+}
+//dependencies {}

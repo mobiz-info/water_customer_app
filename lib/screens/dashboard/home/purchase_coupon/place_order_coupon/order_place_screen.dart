@@ -28,11 +28,18 @@ class _OrderItemsScreenState extends State<OrderItemsScreen> {
   TextEditingController countController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
+  //DateTime selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   @override
   void initState() {
     countController.text = '0';
     super.initState();
+    print("date1234567");
+    print(selectedDate);
+    selectDate(context);
+    setState(() {
+
+    });
   }
 
   @override
@@ -41,7 +48,10 @@ class _OrderItemsScreenState extends State<OrderItemsScreen> {
     super.dispose();
   }
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> selectDate(BuildContext context) async {
+
+    print("date123");
+    print(selectedDate);
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
@@ -177,7 +187,7 @@ class _OrderItemsScreenState extends State<OrderItemsScreen> {
                     textAlign: TextAlign.center,
                   ),
                   GestureDetector(
-                    onTap: () => _selectDate(context),
+                    onTap: () => selectDate(context),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Container(

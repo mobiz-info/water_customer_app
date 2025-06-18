@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:water_customer_app/Models/add_to_cart_response_model.dart';
@@ -42,7 +43,8 @@ class APIManager {
   static String placeOrderUrl = "$baseUrl/api/customer-orders/";
   static String deleteAccountUrl = "$baseUrl/api/customers-delete-request/";
   static String pauseMyDeliveryUrl = "$baseUrl/api/vacations/add/";
-  static String editOrderUrl = "$baseUrl/appostCustomerRegistrationi/customer-cart/";
+ // static String editOrderUrl = "$baseUrl/api/appostCustomerRegistration/customer-cart/";
+  static String editOrderUrl = "$baseUrl/api/customer-cart/";
   static String getEmirateLocationUrl = "$baseUrl/api/emirates-based-locations/";
   static String postCustomerRegistrationUrl = "$baseUrl/api/customer-registration-request/";
 
@@ -150,6 +152,7 @@ class APIManager {
       double totalNetAmount,
       String paymentOption) async {
     final url = orderWaterUrl;
+
     final body = {
       "product": productId,
       "delivery_date": deliveryDate,
@@ -162,8 +165,9 @@ class APIManager {
       "total_net_amount": totalNetAmount,
       "payment_option": paymentOption
     };
-
-    try {
+    print("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+print(body);
+try {
       final response = await NetworkHelper().postWithBodyAuth(
           url: url,
           body: body,
@@ -296,31 +300,99 @@ class APIManager {
       return (e);
     }
   }
-  static Future<dynamic> getCouponPurchase() async {
+
+  //created by new
+  static Future<CouponPurchaseResponseModel> getCouponPurchase() async {
     final url = "$couponPurchaseListUrl";
+    print('🔵 [APIManager] Starting coupon purchase request');
+
     try {
       final response = await NetworkHelper().getWithAuth(
-          url: url,
-          username: AuthData().username ?? '0',
-          password: AuthData().password ?? '0');
+        url: url,
+        username: AuthData().username ?? '0',
+        password: AuthData().password ?? '0',
+      );
+
+      print('🟢 [APIManager] Received response:');
+      print('Status Code: ${response.statusCode}');
+      print('Response Type: ${response.data.runtimeType}');
+      print('Full Response: ${response.data}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        CouponPurchaseResponseModel couponPurchaseResponseModel =
-        CouponPurchaseResponseModel.fromJson(
-            {"status": 200, "data": response.data});
-
-        return couponPurchaseResponseModel;
+        print('🟢 [APIManager] Processing successful response');
+        if (response.data is List) {
+          print('🟢 Response contains list data');
+          return CouponPurchaseResponseModel.fromJson({
+            "status": response.statusCode,
+            "data": response.data,
+          });
+        } else if (response.data is Map) {
+          print('🟠 Response contains map data');
+          return CouponPurchaseResponseModel(
+            status: response.statusCode,
+            couponList: [],
+          );
+        } else {
+          print('🟠 Response contains unexpected data type');
+          return CouponPurchaseResponseModel(
+            status: response.statusCode,
+            couponList: [],
+          );
+        }
       } else {
-        final errorMessage = response.data;
-
-        return errorMessage;
+        print('🟠 [APIManager] Handling non-200 response');
+        print('Response content: ${response.data}');
+        return CouponPurchaseResponseModel(
+          status: response.statusCode,
+          couponList: [],
+        );
       }
-    } on DioException catch (e) {
-      log(e.toString());
-      print('Error 07: $e');
-      return (e);
+    } catch (e) {
+      print('🔴 [APIManager] Error in getCouponPurchase: $e');
+    //  print('Stack trace: ${e.stackTrace}');
+      return CouponPurchaseResponseModel(
+        status: 500,
+        couponList: [],
+      );
     }
   }
+
+
+
+
+  //created by abhijith
+  // static Future<dynamic> getCouponPurchase() async {
+  //   final url = "$couponPurchaseListUrl";
+  //   //created by new
+  //   late final response; // declare it here for scope
+  //   try {
+  //     final response = await NetworkHelper().getWithAuth(
+  //         url: url,
+  //         username: AuthData().username ?? '0',
+  //         password: AuthData().password ?? '0');
+  //     print("URL in get: $url");
+  //     print("Username: ${AuthData().username}");
+  //     print("Password: ${AuthData().password}");
+  //     print("Status Code: ${response.statusCode}");
+  //     print("Response Data: ${response.data}");
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       CouponPurchaseResponseModel couponPurchaseResponseModel =
+  //       CouponPurchaseResponseModel.fromJson(
+  //           {"status": 200, "data": response.data});
+  //
+  //       return couponPurchaseResponseModel;
+  //     } else {
+  //       print("Server returned error: ${response.statusCode}");
+  //       final errorMessage = response.data;
+  //
+  //       return errorMessage;
+  //     }
+  //   } on DioException catch (e) {
+  //     log(e.toString());
+  //     print('Error 07: $e');
+  //     return (e);
+  //   }
+  // }
   static Future<dynamic> getWaterBottlePurchase() async {
     final url = "$waterBottlePurchaseListUrl";
     try {
@@ -408,7 +480,8 @@ print (balanceCouponResponseModel);
       }
 
     };
-
+    print("object");
+print(body);
     try {
       final response = await NetworkHelper().postWithBodyAuth(
           url: url,
@@ -417,9 +490,10 @@ print (balanceCouponResponseModel);
           password: AuthData().password);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        AddToCartResponseModel addToCartResponseModel =
-        AddToCartResponseModel.fromJson(response.data);
-
+       // print("add response$response");
+       //  AddToCartResponseModel addToCartResponseModel =
+       //  AddToCartResponseModel.fromJson(response.data);
+        print("add response$response");
         return 'Done.'; // Return an error message
       } else {
         final errorMessage = response.data;
@@ -430,7 +504,8 @@ print (balanceCouponResponseModel);
       print('Error 10: $e');
       return (e);
     }
-  }static Future<dynamic> listTheCart() async {
+  }
+  static Future<dynamic> listTheCart() async {
     final url = listTheCartUrl;
 
     try {
@@ -482,6 +557,60 @@ print (balanceCouponResponseModel);
       return (e);
     }
   }
+  //craeted by new
+  // static Future<Map<String, dynamic>> placeOrder(String cartId) async {
+  //   final url = placeOrderUrl;
+  //   final body = {"cart_id": cartId};
+  //
+  //   try {
+  //     final dynamic response = await NetworkHelper().postWithBodyAuth(
+  //       url: url,
+  //       body: body,
+  //       username: AuthData().username,
+  //       password: AuthData().password,
+  //     );
+  //
+  //     // Handle if the response is already an error map from postWithBodyAuth
+  //     if (response is Map && response.containsKey('error')) {
+  //       return {
+  //         'success': false,
+  //         'message': response['message'] ?? 'Failed to place order',
+  //         'statusCode': response['statusCode'],
+  //       };
+  //     }
+  //
+  //     // Handle successful Dio response - use dio.Response
+  //     if (response is dio.Response) { // Changed here
+  //       if (response.statusCode == 200 || response.statusCode == 201) {
+  //         OrderPlacingResponseModel orderPlacingResponseModel =
+  //         OrderPlacingResponseModel.fromJson(response.data);
+  //         return {
+  //           'success': true,
+  //           'message': 'Order placed successfully',
+  //           'data': orderPlacingResponseModel,
+  //         };
+  //       } else {
+  //         return {
+  //           'success': false,
+  //           'message': response.data['message'] ?? 'Failed to place order',
+  //           'statusCode': response.statusCode,
+  //         };
+  //       }
+  //     }
+  //
+  //     // Fallback for unexpected response types
+  //     return {
+  //       'success': false,
+  //       'message': 'Unexpected response format',
+  //     };
+  //   } catch (e) {
+  //     return {
+  //       'success': false,
+  //       'message': e.toString(),
+  //     };
+  //   }
+  // }
+  //created by abhijith
   static Future<dynamic> placeOrder(String catId) async {
     final url = placeOrderUrl;
     final body = {
@@ -583,7 +712,8 @@ print (balanceCouponResponseModel);
       print('Error 14: $e');
       return (e);
     }
-  }static Future<dynamic> editOrder(
+  }
+  static Future<dynamic> editOrder(
       String productCartId, int quantity) async {
     final url = editOrderUrl;
     final body = {

@@ -143,11 +143,13 @@ class _OrderWaterScreenState extends State<OrderWaterScreen> {
                                 child: CustomPlusMinusTextBox(
                                   width: screenWidth,
                                   minusFunction: () {
+                                    noEmptyBottleReturnCountController.text=bottleCountController.text;
                                     orderWaterController.updateTotalAmount(
                                         bottleCountController.text);
                                     updateNetTotalAmount();
                                   },
                                   plusFunction: () {
+                                    noEmptyBottleReturnCountController.text=bottleCountController.text;
                                     orderWaterController.updateTotalAmount(
                                         bottleCountController.text);
                                     updateNetTotalAmount();
@@ -267,6 +269,8 @@ class _OrderWaterScreenState extends State<OrderWaterScreen> {
               SizedBox(
                 height: screenHeight * .02,
               ),
+
+
               CustomButton(
                   buttonText:
                       isInCart.value ? 'Already in Cart' : 'Add to Cart',

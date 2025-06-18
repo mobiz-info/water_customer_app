@@ -28,6 +28,66 @@ final Map<String, Map<String, dynamic>> appDetails = {
     "accentColor":Color(0xFF5D9EFF),
 
   },
+  // "Bluediamond Water": {
+  //   "logo": "blue_diamond.png",
+  //   "url": "http://68.183.94.11:252",
+  //   "name": "Bluediamond",
+  //   "theme":const LinearGradient(
+  //     colors: [
+  //       Color(0xFF003D99), // Top color
+  //       Color(0xFF55CAE5), // Bottom color
+  //     ],
+  //     begin: Alignment.topCenter,
+  //     end: Alignment.bottomCenter,
+  //   ),
+  //   "mailId":"sanapurewater@yahoo.com",
+  //   "website":"sanawater.com",
+  //   "phoneNo":"+971507474835",
+  //   "primaryColor":Color(0xFF003D99),
+  //   "secondaryColor":Color(0xFF224985),
+  //   "accentColor":Color(0xFF5D9EFF),
+  //
+  // },
+  "National Water": {
+    "logo": "nationalWaterLogo.png",
+    "url": "http://68.183.94.11:91",
+    "name": "National",
+    "theme":const LinearGradient(
+      colors: [
+        Color(0xFF003D99), // Top color
+        Color(0xFF55CAE5), // Bottom color
+      ],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    ),
+    "mailId":"sanapurewater@yahoo.com",
+    "website":"sanawater.com",
+    "phoneNo":"+971507474835",
+    "primaryColor":Color(0xFF003D99),
+    "secondaryColor":Color(0xFF224985),
+    "accentColor":Color(0xFF5D9EFF),
+
+  },
+  // "Afia Water": {
+  //   "logo": "afia.jpeg",
+  //   "url": "http://68.183.94.11:36",
+  //   "name": "Afia",
+  //   "theme":const LinearGradient(
+  //     colors: [
+  //       Color(0xFF003D99), // Top color
+  //       Color(0xFF55CAE5), // Bottom color
+  //     ],
+  //     begin: Alignment.topCenter,
+  //     end: Alignment.bottomCenter,
+  //   ),
+  //   "mailId":"sanapurewater@yahoo.com",
+  //   "website":"sanawater.com",
+  //   "phoneNo":"+971507474835",
+  //   "primaryColor":Color(0xFF003D99),
+  //   "secondaryColor":Color(0xFF224985),
+  //   "accentColor":Color(0xFF5D9EFF),
+  //
+  // },
 };
 
 String baseUrl = appDetails[globals.appName]?['url'] ?? "";
@@ -37,10 +97,17 @@ final String appName = appDetails[globals.appName]?['name'] ?? "";
 final String webSiteUrl = appDetails[globals.appName]?['website'] ?? "";
 final String phoneNo = appDetails[globals.appName]?['phoneNo'] ?? "";
 final String mailId = appDetails[globals.appName]?['mailId'] ?? "";
-final Color primary = appDetails[globals.appName]?['primaryColor'] ?? "";
-final Color secondary = appDetails[globals.appName]?['secondaryColor'] ?? "";
-final Color accent = appDetails[globals.appName]?['accentColor'] ?? "";
-final LinearGradient themeGradient = appDetails[globals.appName]?['theme'] ?? LinearGradient(
+// final Color primary = appDetails[globals.appName]?['primaryColor'] ?? "";
+// final Color secondary = appDetails[globals.appName]?['secondaryColor'] ?? "";
+// final Color accent = appDetails[globals.appName]?['accentColor'] ?? "";
+//
+final Color primary = appDetails[globals.appName]?['primaryColor'] ?? const Color(0xFF003D99);
+final Color secondary = appDetails[globals.appName]?['secondaryColor'] ?? const Color(0xFF224985);
+final Color accent = appDetails[globals.appName]?['accentColor'] ?? const Color(0xFF5D9EFF);
+// final LinearGradient themeGradient = appDetails[globals.appName]?['theme'] ?? const
+
+final LinearGradient themeGradient = appDetails[globals.appName]?['theme'] ??
+    LinearGradient(
   colors: [
     Color(0xFF2FB8D8), // Top color
     Color(0xFF55CAE5), // Bottom color

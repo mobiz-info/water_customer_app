@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "168999536360",
+    "project_id": "afia-vansale",
+    "storage_bucket": "afia-vansale.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168999536360:android:884d23d1d5932aa7842b5d",
+        "android_client_info": {
+          "package_name": "com.afia.customerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwHZQh_Fo2c1Vp6FtXBQjkocoxGJNw_E0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168999536360:android:3d86d390d66105cb842b5d",
+        "android_client_info": {
+          "package_name": "com.afia.marketing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwHZQh_Fo2c1Vp6FtXBQjkocoxGJNw_E0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168999536360:android:097bc7c001ba44e8842b5d",
+        "android_client_info": {
+          "package_name": "com.afia.vansale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwHZQh_Fo2c1Vp6FtXBQjkocoxGJNw_E0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

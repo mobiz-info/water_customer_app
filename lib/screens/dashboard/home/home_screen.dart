@@ -41,6 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
     homeController.getNextVisitDate();
     homeController.getCouponBalance();
     homeController.getMyOutStanding();
+    print("cash balance ${homeController.outstandingCashBalance.value.toString()}");
+    print("cash coupen ${homeController.outstandingCouponBalance.value.toString()}");
+    print("cash can  ${homeController.outstandingCanBalance.value.toString()}");
     homeController.listTheCart();
     navigationgridIte = [
       NavigationItem(
@@ -49,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           destination: Obx(
             () => MyOutStandingScreen(
               cash: homeController.outstandingCashBalance.value,
+
               coupon: homeController.outstandingCouponBalance.value,
               emptyCans: homeController.outstandingCanBalance.value,
             ),
